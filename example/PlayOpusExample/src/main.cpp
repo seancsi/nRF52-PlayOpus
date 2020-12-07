@@ -19,6 +19,7 @@
 #include <Adafruit_SPIFlash.h>
 #include <Adafruit_USBD_MSC.h>
 #include <nrfx_i2s.h> // Adafruit's nRF52 core doesn't include this.
+#include "libopus/opus.h"
 
 #ifndef NRFX_I2S_DEFAULT_CONFIG_IRQ_PRIORITY
 #define NRFX_I2S_DEFAULT_CONFIG_IRQ_PRIORITY 7
@@ -29,6 +30,8 @@
 #define PIN_MCK   NRF_GPIO_PIN_MAP(0, 7) // D12
 #define PIN_SDOUT  NRF_GPIO_PIN_MAP(0, 26) // D9
 #define BUFFER_LENGTH 4
+
+OpusDecoder *decoder;
 
 void playFile(void);
 int32_t msc_write_cb (uint32_t lba, uint8_t* buffer, uint32_t bufsize);
@@ -141,11 +144,15 @@ void loop()
 }
 
 void playFile(void) {
-  dataFile = fatfs.open("hello.lpcm", FILE_READ);
+  static int decoderError;
+  //opus_decoder_create(24000, 1, &decoderError);
+  
+  dataFile = fatfs.open("sample.ogg", FILE_READ);
   // Configure the first data pointer
   loadBuffer(bufA, &data[0], BUFFER_LENGTH);
   offset = BUFFER_LENGTH;
 
+  //opus_decode();
   // Send off the first transaction.
   firstBuf.p_rx_buffer = NULL;
   firstBuf.p_tx_buffer = (uint32_t *)bufA;
