@@ -11,7 +11,7 @@ static oggCommentHeader_t currentCommentHeader;
 // Expect to be at the beginning of the packet.
 // Return the length of the data in the packet.
 // Seek to the beginning of the data when finished.
-size_t OggReadPacketHeader (FILE * oggFile, oggPacketHeader_t * header) {
+int OggReadPacketHeader (FILE * oggFile, oggPacketHeader_t * header) {
     size_t i;
     if ( fread(header, 1, 27, oggFile) == 27) {
         if (header->Signature == OGGS_MAGIC) {
@@ -34,8 +34,26 @@ size_t OggReadPacketHeader (FILE * oggFile, oggPacketHeader_t * header) {
     }
 }
 
-size_t OggGetNextDataPacket (FILE * oggFile, uint8_t * destination, size_t maxLength) {
-    return 0;
+// Grab the next packet's content into destination.
+// This is probably audio data.
+// We assume we're at the beginning of the packet (i.e. on OggS).
+// So, we need to get the packet header first to figure out how much data is actually
+// available in this packet.
+int OggGetNextDataPacket (FILE * oggFile, uint8_t * destination, size_t maxLength) {
+    int dataLen = OggReadPacketHeader(oggFile, &currentPacketHeader);
+    if (dataLen > 0) {
+        // The packet header is good and dataLen is the number of available bytes in the packet.
+        if (dataLen > maxLength)
+            dataLen = maxLength;
+
+        if ( fread(destination, 1, dataLen, oggFile) == dataLen ) {
+            return dataLen;
+        } else {
+            return OGG_STRIP_EOF;
+        }
+    } else {
+        return dataLen; // This contains the error code from OggReadPacketHeader.
+    }
 }
 
 oggPacketHeader_t* OggGetLastPacketHeader(void) {
@@ -44,8 +62,8 @@ oggPacketHeader_t* OggGetLastPacketHeader(void) {
 
 // We should be at the start of the ID header data section.  Read it in.
 // At the end of this thing, we should have advanced dataLen.
-size_t OggGetIDHeader (FILE * oggFile, oggIDHeader_t * destination, size_t dataLen) {
-    size_t extraBytes = dataLen - 19;
+int OggGetIDHeader (FILE * oggFile, oggIDHeader_t * destination, int dataLen) {
+    int extraBytes = dataLen - 19;
     // If dataLen exceeds the length of the ID header (like if there's a channel mapping table)
     // just read in the ID stuff, and skip to the end.
     if (dataLen >= 19) {
@@ -72,8 +90,8 @@ size_t OggGetIDHeader (FILE * oggFile, oggIDHeader_t * destination, size_t dataL
 
 // We should be at the start of the comment header data section.
 // As of now, we don't need to parse this crap.  Just skip it all for now.
-size_t OggGetCommentHeader (FILE * oggFile, oggCommentHeader_t * destination, size_t dataLen) {
-    size_t extraBytes = dataLen - 12;
+int OggGetCommentHeader (FILE * oggFile, oggCommentHeader_t * destination, int dataLen) {
+    int extraBytes = dataLen - 12;
     // If dataLen exceeds the length of the comment header (like if there's a custom comment)
     // just read in the fixed comment stuff, and skip to the end.
     if (dataLen >= 12) {
@@ -103,7 +121,7 @@ size_t OggGetCommentHeader (FILE * oggFile, oggCommentHeader_t * destination, si
 // This function should be called first, before GetNextDataPacket.
 // Return the data length pulled from the packet header.
 bool OggPrepareFile (FILE * oggFile) {
-    size_t dataLen;
+    int dataLen;
     fseek(oggFile, 0, SEEK_SET); // Seek to the beginning.
 
     // Read in the ID header.

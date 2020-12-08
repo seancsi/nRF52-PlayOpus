@@ -45,11 +45,11 @@ enum {
     OGG_STRIP_LEN_SHORT = -5
 };
 
-size_t OggReadPacketHeader (FILE * oggFile, oggPacketHeader_t * header);
-size_t OggGetNextDataPacket (FILE * oggFile, uint8_t * destination, size_t maxLength);
+int OggReadPacketHeader (FILE * oggFile, oggPacketHeader_t * header);
+int OggGetNextDataPacket (FILE * oggFile, uint8_t * destination, size_t maxLength);
 oggPacketHeader_t* OggGetLastPacketHeader(void);
-size_t OggGetIDHeader (FILE * oggFile, oggIDHeader_t * destination, size_t dataLen);
-size_t OggGetCommentHeader (FILE * oggFile, oggCommentHeader_t * destination, size_t dataLen);
+int OggGetIDHeader (FILE * oggFile, oggIDHeader_t * destination, int dataLen);
+int OggGetCommentHeader (FILE * oggFile, oggCommentHeader_t * destination, int dataLen);
 bool OggPrepareFile (FILE * oggFile);
 
 

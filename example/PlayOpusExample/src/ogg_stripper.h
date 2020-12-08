@@ -1,11 +1,15 @@
 // Ogg Stripper Header File
 #include <stdio.h>
+#include <stdbool.h>
+#include <stdint.h>
 
 #ifndef OGG_STRIPPER_H
 
-#define OGGS_MAGIC 0x4F676753 // "OggS"
+#define OGGS_MAGIC     0x5367674F // "OggS" NOTE: Might change due to endianness?
+#define OPUSHEAD_MAGIC 0x646165487375704F // "OpusHead"
+#define OPUSTAGS_MAGIC 0x736761547375704F // "OpusTags"
 
-typedef struct  {
+typedef struct __attribute((packed)) {
     uint32_t Signature;
     uint8_t Version;
     uint8_t Flags;
@@ -17,7 +21,7 @@ typedef struct  {
     uint32_t DataLength;
 } oggPacketHeader_t;
 
-typedef struct {
+typedef struct __attribute((packed)) {
     uint64_t Signature;
     uint8_t Version;
     uint8_t ChannelCount;
@@ -25,24 +29,28 @@ typedef struct {
     uint32_t InputSampleRate;
     uint16_t OutputGain;
     uint8_t MappingFamily;
-    uint32_t ChannelMappingOffset; 
 } oggIDHeader_t;
 
-typedef struct {
+typedef struct __attribute((packed)) {
     uint64_t Signature;
     uint32_t VendorStringLength;
-    uint32_t UserCommentListLength;
-    uint32_t UserComment0StringLength;
 } oggCommentHeader_t;
 
-
-oggIDHeader_t OggGetIDHeader (FILE * oggFile);
-
 enum {
+    OGG_STRIP_OK = 0,
     OGG_STRIP_ERR_UNKNOWN = -1,
-    OGG_STRIP_ERR_EOF = -2,
+    OGG_STRIP_EOF = -2,
     OGG_STRIP_BAD_MAGIC = -3,
-    OGG_STRIP_NO_SEGS = -4
+    OGG_STRIP_NO_SEGS = -4,
+    OGG_STRIP_LEN_SHORT = -5
 };
+
+int OggReadPacketHeader (FILE * oggFile, oggPacketHeader_t * header);
+int OggGetNextDataPacket (FILE * oggFile, uint8_t * destination, size_t maxLength);
+oggPacketHeader_t* OggGetLastPacketHeader(void);
+int OggGetIDHeader (FILE * oggFile, oggIDHeader_t * destination, int dataLen);
+int OggGetCommentHeader (FILE * oggFile, oggCommentHeader_t * destination, int dataLen);
+bool OggPrepareFile (FILE * oggFile);
+
 
 #endif

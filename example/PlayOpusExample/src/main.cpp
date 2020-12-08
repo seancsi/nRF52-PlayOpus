@@ -145,7 +145,7 @@ void loop()
 
 void playFile(void) {
   static int decoderError;
-  //opus_decoder_create(24000, 1, &decoderError);
+  decoder = opus_decoder_create(24000, 1, &decoderError);
   
   dataFile = fatfs.open("sample.ogg", FILE_READ);
   // Configure the first data pointer
