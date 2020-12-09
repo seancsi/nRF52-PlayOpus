@@ -5,24 +5,24 @@
 #include <Adafruit_SPIFlash.h>
 #include "ogg_stripper.h"
 
-static oggPacketHeader_t currentPacketHeader;
+static oggPageHeader_t currentPageHeader;
 static oggIDHeader_t currentIDHeader;
 static oggCommentHeader_t currentCommentHeader;
 
-// Parse the packet header into a struct.
-// Expect to be at the beginning of the packet.
-// Return the length of the data in the packet.
+// Parse the page header into a struct.
+// Expect to be at the beginning of the page.
+// Return the length of the data in the page.
 // Seek to the beginning of the data when finished.
-int OggReadPacketHeader (File * oggFile, oggPacketHeader_t * header) {
+int OggReadPageHeader (File * oggFile, oggPageHeader_t * header) {
     size_t i;
     if ( oggFile->readBytes( (char *)header, 27 ) == 27 ) {
         if (header->Signature == OGGS_MAGIC) {
-            // Our magic signature is good, and we don't care about everything else.
-            // Let's figure out how big our data payload is.
-            if (header->TotalSegments) {
+            if (header->Segments) {
+                // Read in the segment table.
+                oggFile->readBytes(header->SegmentTable, header->Segments);
                 header->DataLength = 0;
-                for (i = 0; i < header->TotalSegments; i++)
-                    header->DataLength += oggFile->read();
+                for (i = 0; i < header->Segments; i++)
+                    header->DataLength += header->SegmentTable[i];
 
                 return header->DataLength;
             } else {
@@ -36,30 +36,62 @@ int OggReadPacketHeader (File * oggFile, oggPacketHeader_t * header) {
     }
 }
 
-// Grab the next packet's content into destination.
-// This is probably audio data.
-// We assume we're at the beginning of the packet (i.e. on OggS).
-// So, we need to get the packet header first to figure out how much data is actually
-// available in this packet.
-int OggGetNextDataPacket (File * oggFile, uint8_t * destination, size_t maxLength) {
-    int dataLen = OggReadPacketHeader(oggFile, &currentPacketHeader);
+// Grab the next page's content into destination.
+// This will pull the ENTIRE page, which is probably not as useful as the packet implementation below.
+// We assume we're at the beginning of the page (i.e. on OggS).
+// So, we need to get the page header first to figure out how much data is actually
+// available in this page.
+int OggGetNextDataPage (File * oggFile, uint8_t * destination, size_t maxLength) {
+    int dataLen = OggReadPageHeader(oggFile, &currentPageHeader);
     if (dataLen > 0) {
-        // The packet header is good and dataLen is the number of available bytes in the packet.
-        if (dataLen > maxLength)
+        // The page header is good and dataLen is the number of available bytes in the page.
+        // Note: Since we made sure dataLen > 0, casting to unsigned is safe.
+        if ((unsigned)dataLen > maxLength)
             dataLen = maxLength;
 
-        if ( oggFile->readBytes(destination, dataLen) == dataLen ) {
+        if ( oggFile->readBytes(destination, dataLen) == (unsigned)dataLen ) {
             return dataLen;
         } else {
             return OGG_STRIP_EOF;
         }
     } else {
-        return dataLen; // This contains the error code from OggReadPacketHeader.
+        return dataLen; // This contains the error code from OggReadPageHeader.
     }
 }
 
-oggPacketHeader_t* OggGetLastPacketHeader(void) {
-    return &currentPacketHeader;
+// Grab the next packet's content into destination.
+// This is probably audio data.
+// We assume we're at the beginning of a packet if currentPacket is nonzero.
+// If it's zero, we're probably at the beginning of a page, so we should grab the page
+// header and fast forward to the start of the content before pulling anything.
+int OggGetNextPacket (File * oggFile, uint8_t * destination, size_t maxLength) {
+    static size_t currentPacket = 0;
+    int dataLen;
+    int packetLen;
+
+    // If we're done with the previous page and need a new one.
+    if (currentPacket >= currentPageHeader.Segments)
+        currentPacket = 0;
+
+    if (!currentPacket++)
+        dataLen = OggReadPageHeader(oggFile, &currentPageHeader);
+   
+    if (dataLen > 0) {
+        // The page header was pulled successfully, and we're cue'd up.
+        // Note: Since we made sure dataLen > 0, casting to unsigned is safe.
+        packetLen = oggFile->readBytes(destination, currentPageHeader.SegmentTable[currentPacket]);
+
+        if ( packetLen == currentPageHeader.SegmentTable[currentPacket] )
+            return packetLen;
+        else
+            return OGG_STRIP_EOF;
+    } else {
+        return dataLen; // This contains the error code from OggReadPageHeader.
+    }
+}
+
+oggPageHeader_t* OggGetLastPageHeader(void) {
+    return &currentPageHeader;
 }
 
 // We should be at the start of the ID header data section.  Read it in.
@@ -119,21 +151,21 @@ int OggGetCommentHeader (File * oggFile, oggCommentHeader_t * destination, int d
 }
 
 // Start the file at the beginning.  If it's valid, read the info.
-// Finally, seek to the beginning of the first data packet.
-// This function should be called first, before GetNextDataPacket.
-// Return the data length pulled from the packet header.
+// Finally, seek to the beginning of the first data page.
+// This function should be called first, before GetNextDataPage.
+// Return the data length pulled from the page header.
 bool OggPrepareFile (File * oggFile) {
     int dataLen;
     oggFile->seek(0); // Seek to the beginning.
 
     // Read in the ID header.
-    dataLen = OggReadPacketHeader(oggFile, &currentPacketHeader);
+    dataLen = OggReadPageHeader(oggFile, &currentPageHeader);
     if ( OggGetIDHeader(oggFile, &currentIDHeader, dataLen) == OGG_STRIP_OK ) {
         printf("Got ID Header!\r\n");
     }
 
     // Read in the comment header.
-    dataLen = OggReadPacketHeader(oggFile, &currentPacketHeader);
+    dataLen = OggReadPageHeader(oggFile, &currentPageHeader);
     if ( OggGetCommentHeader(oggFile, &currentCommentHeader, dataLen) == OGG_STRIP_OK ) {
         printf("Got Comment Header!\r\n");
     }

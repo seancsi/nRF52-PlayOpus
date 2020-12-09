@@ -2,7 +2,9 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
-#include <Adafruit_SPIFlash.h>
+
+#define File ifstream
+#define readBytes read
 
 #ifndef OGG_STRIPPER_H
 
@@ -18,9 +20,10 @@ typedef struct __attribute((packed)) {
     uint32_t SerialNumber;
     uint32_t SequenceNumber;
     uint32_t Checksum;
-    uint8_t TotalSegments;
+    uint8_t Segments;
+    uint8_t SegmentTable[255];
     uint32_t DataLength;
-} oggPacketHeader_t;
+} oggPageHeader_t;
 
 typedef struct __attribute((packed)) {
     uint64_t Signature;
@@ -46,12 +49,13 @@ enum {
     OGG_STRIP_LEN_SHORT = -5
 };
 
-int OggReadPacketHeader (FILE * oggFILE, oggPacketHeader_t * header);
-int OggGetNextDataPacket (FILE * oggFILE, uint8_t * destination, size_t maxLength);
-oggPacketHeader_t* OggGetLastPacketHeader(void);
-int OggGetIDHeader (FILE * oggFILE, oggIDHeader_t * destination, int dataLen);
-int OggGetCommentHeader (FILE * oggFILE, oggCommentHeader_t * destination, int dataLen);
-bool OggPrepareFILE (FILE * oggFILE);
+int OggReadPageHeader (File * oggFile, oggPageHeader_t * header);
+int OggGetNextDataPage (File * oggFile, uint8_t * destination, size_t maxLength);
+int OggGetNextPacket (File * oggFile, uint8_t * destination, size_t maxLength);
+oggPageHeader_t* OggGetLastPageHeader(void);
+int OggGetIDHeader (File * oggFile, oggIDHeader_t * destination, int dataLen);
+int OggGetCommentHeader (File * oggFile, oggCommentHeader_t * destination, int dataLen);
+bool OggPrepareFile (File * oggFile);
 
 
 #endif

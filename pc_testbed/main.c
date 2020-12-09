@@ -5,7 +5,7 @@
 int main (void) {
     FILE *oggFile;
     FILE *outFile;
-    oggPacketHeader_t header;
+    oggPageHeader_t header;
     uint8_t outBuffer[5000];
     int bytesPulled;
     int err;
@@ -18,8 +18,8 @@ int main (void) {
 
         if ( OggPrepareFile(oggFile) ) { // Prepare the filehandle to be read.
             while (1) {
-                bytesPulled = OggGetNextDataPacket(oggFile, outBuffer, 5000);
-                printf("Bytes Pulled: %d of %d\r\n",bytesPulled, OggGetLastPacketHeader()->DataLength);
+                bytesPulled = OggGetNextDataPage(oggFile, outBuffer, 5000);
+                printf("Bytes Pulled: %d of %d\r\n",bytesPulled, OggGetLastPageHeader()->DataLength);
                 if (bytesPulled > 0)
                     fwrite(outBuffer, 1, bytesPulled, outFile);
                 else

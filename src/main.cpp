@@ -32,7 +32,7 @@
 #define PIN_SDOUT  NRF_GPIO_PIN_MAP(0, 26) // D9
 #define BUFFER_LENGTH 1920
 
-#define OGG_BUF_LEN 4200
+#define OGG_BUF_LEN 0xFF
 
 void playFile(void);
 int32_t msc_write_cb (uint32_t lba, uint8_t* buffer, uint32_t bufsize);
@@ -155,22 +155,24 @@ void playFile(void) {
   // Read the header data from the file.
   if ( dataFile.available() ) {
     if ( OggPrepareFile(&dataFile) ) {
-      bytesPulled = OggGetNextDataPacket(&dataFile, oggBuf, OGG_BUF_LEN);
+      bytesPulled = OggGetNextPacket(&dataFile, oggBuf, OGG_BUF_LEN);
       if (bytesPulled > 0)
         decoderError = opus_decode(decoder, oggBuf, bytesPulled, bufA, BUFFER_LENGTH, 1);
     }
   }
 
-  // Configure the first data pointer
-  //loadBuffer(bufA, &data[0], BUFFER_LENGTH);
-  //offset = BUFFER_LENGTH;
-
-  //opus_decode();
   // Send off the first transaction.
   firstBuf.p_rx_buffer = NULL;
   firstBuf.p_tx_buffer = (uint32_t *)bufA;
   if ( nrfx_i2s_start(&firstBuf, BUFFER_LENGTH/2, 0) != NRFX_SUCCESS)
     Serial.print("ERROR: I2S Failed to Start.");
+
+  // Go ahead and prep bufB.
+  if ( dataFile.available() ) {
+    bytesPulled = OggGetNextPacket(&dataFile, oggBuf, OGG_BUF_LEN);
+    //if (bytesPulled > 0)
+      //decoderError = opus_decode(decoder, oggBuf, bytesPulled, bufB, BUFFER_LENGTH, 1);
+  }
 }
 
 // Callback invoked when received READ10 command.
@@ -210,17 +212,27 @@ void msc_flush_cb (void)
 // Callback invoked when we need more data in the I2S module.
 static void data_handler(nrfx_i2s_buffers_t const * p_released, uint32_t status)
 {
+  static int decoderError;
+  int bytesPulled;
   newBuf.p_rx_buffer = NULL;
 
   if (status == NRFX_I2S_STATUS_NEXT_BUFFERS_NEEDED) {
     if (p_released->p_tx_buffer)
       newBuf.p_tx_buffer = p_released->p_tx_buffer;
     else
-      newBuf.p_tx_buffer = (uint32_t *)bufB;
+      newBuf.p_tx_buffer = (uint32_t *)bufB; // On the first run, bufA will be consumed and nothing will be freed, so queue B.
   }
 
-  //loadBuffer( (uint16_t *)newBuf.p_tx_buffer, &data[offset], BUFFER_LENGTH);
-  //offset += ( BUFFER_LENGTH );
+  // Load up the recently freed buffer with new PCM data.
+  if ( dataFile.available() ) {
+      bytesPulled = OggGetNextPacket(&dataFile, oggBuf, OGG_BUF_LEN);
+      if (bytesPulled > 0)
+        decoderError = opus_decode(decoder, oggBuf, bytesPulled, (int16_t *)newBuf.p_tx_buffer, BUFFER_LENGTH, 1);
+      else
+        nrfx_i2s_stop(); // Probably done.
+  } else {
+    nrfx_i2s_stop(); // Probably done.
+  }
 
   nrfx_i2s_next_buffers_set(&newBuf);
 }
