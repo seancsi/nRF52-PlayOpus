@@ -30,7 +30,7 @@
 #define PIN_SCK    NRF_GPIO_PIN_MAP(0, 6) // D11
 #define PIN_MCK   NRF_GPIO_PIN_MAP(0, 7) // D12
 #define PIN_SDOUT  NRF_GPIO_PIN_MAP(0, 26) // D9
-#define BUFFER_LENGTH 1920
+#define BUFFER_LENGTH 1000
 
 #define OGG_BUF_LEN 0xFF
 
@@ -85,11 +85,11 @@ void setup()
   // Init file system on the flash
   fatfs.begin(&flash);
 
-  Serial.begin(115200);
+ // Serial.begin(115200);
 
-  Serial.println("Adafruit TinyUSB Mass Storage External Flash example");
-  Serial.print("JEDEC ID: "); Serial.println(flash.getJEDECID(), HEX);
-  Serial.print("Flash size: "); Serial.println(flash.size());
+//  Serial.println("Adafruit TinyUSB Mass Storage External Flash example");
+//  Serial.print("JEDEC ID: "); Serial.println(flash.getJEDECID(), HEX);
+//  Serial.print("Flash size: "); Serial.println(flash.size());
 
   changed = true; // to print contents initially
 
@@ -101,7 +101,7 @@ void setup()
   if (nrfx_i2s_init(&config, &data_handler) != NRF_SUCCESS)
   {
       // Initialization failed. Take recovery action.
-      Serial.print("ERROR: I2S Config Failed.");
+//      Serial.print("ERROR: I2S Config Failed.");
   }
 }
 
@@ -113,35 +113,33 @@ void loop()
     changed = false;
     if ( !root.open("/") )
     {
-      Serial.println("open root failed");
+//      Serial.println("open root failed");
       return;
     }
-    Serial.println("Flash contents:");
+//    Serial.println("Flash contents:");
     // Open next file in root.
     // Warning, openNext starts at the current directory position
     // so a rewind of the directory may be required.
     while ( file.openNext(&root, O_RDONLY) )
     {
       file.printFileSize(&Serial);
-      Serial.write(' ');
+ //     Serial.write(' ');
       file.printName(&Serial);
       if ( file.isDir() )
       {
         // Indicate a directory.
-        Serial.write('/');
+ //       Serial.write('/');
       }
-      Serial.println();
+ //     Serial.println();
       file.close();
     }
     root.close();
-    Serial.println();
+ //   Serial.println();
     delay(1000);
   }
 
-//  if (n++ == 5)
+  if (n++ == 5)
     playFile();
-
-  delay(10000);
 
 }
 
@@ -149,7 +147,7 @@ void playFile(void) {
   static int decoderError;
   int bytesPulled;
   decoder = opus_decoder_create(16000, 1, &decoderError);
-  opus_decoder_ctl(decoder, OPUS_SET_LSB_DEPTH(16));
+  //opus_decoder_ctl(decoder, OPUS_SET_LSB_DEPTH(16));
   
   dataFile = fatfs.open("sample.ogg", FILE_READ);
 
@@ -228,5 +226,5 @@ static void data_handler(nrfx_i2s_buffers_t const * p_released, uint32_t status)
     nrfx_i2s_stop(); // Probably done.
   }
 
-  nrfx_i2s_next_buffers_set(&newBuf);
+  //nrfx_i2s_next_buffers_set(&newBuf);
 }
