@@ -138,10 +138,10 @@ void loop()
     delay(1000);
   }
 
-  if (n++ == 5)
+//  if (n++ == 5)
     playFile();
 
-  delay(1000);
+  delay(10000);
 
 }
 
@@ -149,6 +149,7 @@ void playFile(void) {
   static int decoderError;
   int bytesPulled;
   decoder = opus_decoder_create(16000, 1, &decoderError);
+  opus_decoder_ctl(decoder, OPUS_SET_LSB_DEPTH(16));
   
   dataFile = fatfs.open("sample.ogg", FILE_READ);
 
@@ -157,7 +158,7 @@ void playFile(void) {
     if ( OggPrepareFile(&dataFile) ) {
       bytesPulled = OggGetNextPacket(&dataFile, oggBuf, OGG_BUF_LEN);
       if (bytesPulled > 0)
-        decoderError = opus_decode(decoder, oggBuf, bytesPulled, bufA, BUFFER_LENGTH, 1);
+        decoderError = opus_decode(decoder, oggBuf, bytesPulled, bufA, BUFFER_LENGTH, 0);
     }
   }
 
@@ -166,13 +167,6 @@ void playFile(void) {
   firstBuf.p_tx_buffer = (uint32_t *)bufA;
   if ( nrfx_i2s_start(&firstBuf, BUFFER_LENGTH/2, 0) != NRFX_SUCCESS)
     Serial.print("ERROR: I2S Failed to Start.");
-
-  // Go ahead and prep bufB.
-  if ( dataFile.available() ) {
-    bytesPulled = OggGetNextPacket(&dataFile, oggBuf, OGG_BUF_LEN);
-    //if (bytesPulled > 0)
-      //decoderError = opus_decode(decoder, oggBuf, bytesPulled, bufB, BUFFER_LENGTH, 1);
-  }
 }
 
 // Callback invoked when received READ10 command.
@@ -227,7 +221,7 @@ static void data_handler(nrfx_i2s_buffers_t const * p_released, uint32_t status)
   if ( dataFile.available() ) {
       bytesPulled = OggGetNextPacket(&dataFile, oggBuf, OGG_BUF_LEN);
       if (bytesPulled > 0)
-        decoderError = opus_decode(decoder, oggBuf, bytesPulled, (int16_t *)newBuf.p_tx_buffer, BUFFER_LENGTH, 1);
+        decoderError = opus_decode(decoder, oggBuf, bytesPulled, (int16_t *)newBuf.p_tx_buffer, BUFFER_LENGTH, 0);
       else
         nrfx_i2s_stop(); // Probably done.
   } else {
