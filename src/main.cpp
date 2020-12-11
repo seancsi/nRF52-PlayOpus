@@ -19,7 +19,7 @@
 #include <Adafruit_SPIFlash.h>
 #include <Adafruit_USBD_MSC.h>
 #include <nrfx_i2s.h> // Adafruit's nRF52 core doesn't include this.
-#include "libopus/opus.h"
+#include "opus-1.2.1/opus.h"
 #include "ogg_stripper.h"
 
 #ifndef NRFX_I2S_DEFAULT_CONFIG_IRQ_PRIORITY
@@ -226,5 +226,5 @@ static void data_handler(nrfx_i2s_buffers_t const * p_released, uint32_t status)
     nrfx_i2s_stop(); // Probably done.
   }
 
-  //nrfx_i2s_next_buffers_set(&newBuf);
+  nrfx_i2s_next_buffers_set(&newBuf);
 }
