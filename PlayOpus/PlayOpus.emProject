@@ -1,6 +1,6 @@
 <!DOCTYPE CrossStudio_Project_File>
-<solution Name="usbd_msc_pca10056" target="8" version="2">
-  <project Name="usbd_msc_pca10056">
+<solution Name="PlayOpus" target="8" version="2">
+  <project Name="PlayOpus">
     <configuration
       Name="Common"
       arm_architecture="v7EM"
@@ -15,7 +15,7 @@
       arm_simulator_memory_simulation_parameter="RWX 00000000,00100000,FFFFFFFF;RWX 20000000,00010000,CDCDCDCD"
       arm_target_device_name="nRF52840_xxAA"
       arm_target_interface_type="SWD"
-      c_preprocessor_definitions="APP_TIMER_V2;APP_TIMER_V2_RTC1_ENABLED;BOARD_PCA10056;CONFIG_GPIO_AS_PINRESET;DEBUG;DEBUG_NRF;FLOAT_ABI_HARD;INITIALIZE_USER_SECTIONS;NO_VTOR_CONFIG;NRF52840_XXAA;"
+      c_preprocessor_definitions="APP_TIMER_V2;APP_TIMER_V2_RTC1_ENABLED;CUSTOM_BOARD_INC=alderton;CONFIG_GPIO_AS_PINRESET;DEBUG;DEBUG_NRF;FLOAT_ABI_HARD;INITIALIZE_USER_SECTIONS;NO_VTOR_CONFIG;NRF52840_XXAA"
       c_user_include_directories="../../../config;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/boards;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/drivers_nrf/nrf_soc_nosd;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/atomic;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/atomic_fifo;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/balloc;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/empty;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/qspi;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/ram;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/sdc;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/bsp;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/button;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/delay;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/experimental_section_vars;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/fifo;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/hardfault;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/hardfault/nrf52;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/src;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/memobj;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/ringbuf;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/scheduler;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/sdcard;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/sortlist;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/strerror;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/timer;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/uart;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/usbd;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/usbd/class/msc;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/toolchain/cmsis/include;../../..;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/external/fatfs/port;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/external/fatfs/src;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/external/fprintf;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/external/protothreads;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/external/protothreads/pt-1.4;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/external/segger_rtt;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/external/utf_converter;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/integration/nrfx;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/integration/nrfx/legacy;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/include;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/hal;C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk;../config;"
       debug_register_definition_file="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf52840.svd"
       debug_start_from_entry_point_symbol="No"
@@ -107,6 +107,7 @@
       <file file_name="src/main.c" />
       <configuration Name="Debug" build_exclude_from_build="No" />
       <file file_name="include/sdk_config.h" />
+      <file file_name="include/alderton.h" />
     </folder>
     <folder Name="nRF_Segger_RTT">
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/external/segger_rtt/SEGGER_RTT.c" />
@@ -137,5 +138,7 @@
     gcc_optimization_level="None" />
   <configuration
     Name="Common"
+    arm_architecture="v7EM"
+    arm_fpu_type="FPv4-SP-D16"
     c_user_include_directories=".;$(SolutionDir)/include" />
 </solution>

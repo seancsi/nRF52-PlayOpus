@@ -122,7 +122,7 @@
 /**
  * @brief FatFS for QPSI enable/disable
  */
-#define USE_FATFS_QSPI    0
+#define USE_FATFS_QSPI    1
 
 /**
  * @brief Mass storage class user event handler
