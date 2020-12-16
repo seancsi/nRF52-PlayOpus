@@ -1,11 +1,11 @@
 Output/Debug/Obj/PlayOpus/main.o: \
- C:\Users\sean\Documents\GitHub\nRF52-PlayOpus\PlayOpus\src\main.c \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdint.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdbool.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stddef.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/__crossworks.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/inttypes.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdlib.h \
+ C:\Users\sean\Git\nRF52-PlayOpus\PlayOpus\src\main.c \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdint.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdbool.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stddef.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/__crossworks.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/inttypes.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdlib.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf52840.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/toolchain/cmsis/include/core_cm4.h \
@@ -20,8 +20,8 @@ Output/Debug/Obj/PlayOpus/main.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/compiler_abstraction.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/nrf_block_dev.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_common.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/string.h \
- C:/Users/sean/Documents/GitHub/nRF52-PlayOpus/PlayOpus/include/sdk_config.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/string.h \
+ C:/Users/sean/Git/nRF52-PlayOpus/PlayOpus/include/sdk_config.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/nordic_common.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/compiler_abstraction.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_os.h \
@@ -52,7 +52,7 @@ Output/Debug/Obj/PlayOpus/main.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_util.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_util_platform.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_error.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdio.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdio.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_error_weak.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/soc/nrfx_coredep.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/soc/nrfx_atomic.h \
@@ -108,7 +108,7 @@ Output/Debug/Obj/PlayOpus/main.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/sortlist/nrf_sortlist.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/bsp/bsp.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/boards/boards.h \
- C:/Users/sean/Documents/GitHub/nRF52-PlayOpus/PlayOpus/include/alderton.h \
+ C:/Users/sean/Git/nRF52-PlayOpus/PlayOpus/include/alderton.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/button/app_button.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/nrf_log.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/strerror/nrf_strerror.h \
