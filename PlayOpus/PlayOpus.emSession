@@ -14,16 +14,6 @@
   <ProjectSessionItem path="PlayOpus"/>
   <ProjectSessionItem path="PlayOpus;PlayOpus"/>
   <ProjectSessionItem path="PlayOpus;PlayOpus;Application"/>
-  <ProjectSessionItem path="PlayOpus;PlayOpus;Board Definition"/>
-  <ProjectSessionItem path="PlayOpus;PlayOpus;Board Support"/>
-  <ProjectSessionItem path="PlayOpus;PlayOpus;FATFS"/>
-  <ProjectSessionItem path="PlayOpus;PlayOpus;None"/>
-  <ProjectSessionItem path="PlayOpus;PlayOpus;nRF_Drivers"/>
-  <ProjectSessionItem path="PlayOpus;PlayOpus;nRF_Libraries"/>
-  <ProjectSessionItem path="PlayOpus;PlayOpus;nRF_Log"/>
-  <ProjectSessionItem path="PlayOpus;PlayOpus;nRF_Segger_RTT"/>
-  <ProjectSessionItem path="PlayOpus;PlayOpus;Segger Startup Files"/>
-  <ProjectSessionItem path="PlayOpus;PlayOpus;UTF8/UTF16 converter"/>
  </Project>
  <Register1/>
  <Register2/>
@@ -48,10 +38,9 @@
   <Watches active="0" update="Never"/>
  </Watch4>
  <Files>
-  <SessionOpenFile windowGroup="DockEditLeft" x="3" y="116" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="src/main.c" selected="0" top="117" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="include/sdk_config.h" selected="0" top="60" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="54" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/qspi/nrf_serial_flash_params.c" selected="1" top="27" codecName="Default"/>
-  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="0" useTextEdit="1" openedFrom="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/qspi/nrf_serial_flash_params.c" useBinaryEdit="0" left="0" path="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/qspi/nrf_serial_flash_params.h" selected="0" top="54" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="26" y="52" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="src/main.c" selected="1" top="0" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="58" y="159" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="src/ogg_stripper.cpp" selected="0" top="91" codecName="Default"/>
+  <SessionOpenFile windowGroup="DockEditLeft" x="0" y="54" useTextEdit="1" openedFrom="" useBinaryEdit="0" left="0" path="include/ogg_stripper.h" selected="0" top="15" codecName="Default"/>
  </Files>
- <ARMCrossStudioWindow activeProject="PlayOpus" fileDialogDefaultFilter="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.hxx" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/sean/Git/nRF52-PlayOpus/PlayOpus" debugSearchPath="" autoConnectCapabilities="3711"/>
+ <ARMCrossStudioWindow activeProject="PlayOpus" fileDialogDefaultFilter="*.c;*.cpp;*.cxx;*.cc;*.h;*.hpp;*.hxx" autoConnectTarget="J-Link" buildConfiguration="Debug" sessionSettings="" debugSearchFileMap="" fileDialogInitialDirectory="C:/Users/sean/Git/nRF52-PlayOpus/PlayOpus/src" debugSearchPath="" autoConnectCapabilities="3711"/>
 </session>
