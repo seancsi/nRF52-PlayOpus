@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 #include <stdint.h>
+#include <ff.h>
 
 #ifndef OGG_STRIPPER_H
 
@@ -46,13 +47,13 @@ enum {
     OGG_STRIP_LEN_SHORT = -5
 };
 
-int OggReadPageHeader (FILE * oggFile, oggPageHeader_t * header);
-int OggGetNextDataPage (FILE * oggFile, uint8_t * destination, size_t maxLength);
-int OggGetNextPacket (FILE * oggFile, uint8_t * destination, size_t maxLength);
+int OggReadPageHeader (FIL * oggFile, oggPageHeader_t * header);
+int OggGetNextDataPage (FIL * oggFile, uint8_t * destination, size_t maxLength);
+int OggGetNextPacket (FIL * oggFile, uint8_t * destination, size_t maxLength);
 oggPageHeader_t* OggGetLastPageHeader(void);
-int OggGetIDHeader (FILE * oggFile, oggIDHeader_t * destination, int dataLen);
-int OggGetCommentHeader (FILE * oggFile, oggCommentHeader_t * destination, int dataLen);
-bool OggPrepareFile (FILE * oggFile);
+int OggGetIDHeader (FIL * oggFile, oggIDHeader_t * destination, int dataLen);
+int OggGetCommentHeader (FIL * oggFile, oggCommentHeader_t * destination, int dataLen);
+bool OggPrepareFile (FIL * oggFile);
 
 
 #endif

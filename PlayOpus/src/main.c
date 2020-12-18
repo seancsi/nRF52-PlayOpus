@@ -37,6 +37,8 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#include "play_opus.h"
+
 /**@file
  * @defgroup usbd_msc_example main.c
  * @{
@@ -407,7 +409,7 @@ int main(void)
     if (fatfs_init())
     {
         fatfs_ls();
-        fatfs_file_create();
+        //fatfs_file_create();
     }
 
     ret = app_usbd_init(&usbd_config);
@@ -433,6 +435,8 @@ int main(void)
         m_usb_connected = true;
     }
 
+    OPUS_Init();
+
     while (true)
     {
         while (app_usbd_event_queue_process())
@@ -444,7 +448,14 @@ int main(void)
         uint32_t events = nrf_atomic_u32_fetch_store(&m_key_events, 0);
         if (events & KEY_EV_RANDOM_FILE_MSK)
         {
-            fatfs_file_create();
+            //fatfs_file_create();
+            //app_usbd_disable();
+            if (m_usb_connected) {
+                app_usbd_stop();
+                m_usb_connected = false;
+            } else {
+                OPUS_PlayFile();
+            }
         }
 
         if (events & KEY_EV_LIST_DIR_MSK)
@@ -454,7 +465,7 @@ int main(void)
 
         if (events & KEY_EV_MKFS_MSK)
         {
-            fatfs_mkfs();
+            //fatfs_mkfs();
         }
 
         UNUSED_RETURN_VALUE(NRF_LOG_PROCESS());

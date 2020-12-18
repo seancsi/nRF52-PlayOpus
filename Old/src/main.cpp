@@ -28,7 +28,7 @@
 
 #define PIN_LRCK    NRF_GPIO_PIN_MAP(0, 27) // D10
 #define PIN_SCK    NRF_GPIO_PIN_MAP(0, 6) // D11
-#define PIN_MCK   NRF_GPIO_PIN_MAP(0, 7) // D12
+#define PIN_MCK   NRF_GPIO_PIN_MAP(0, 8) // D12
 #define PIN_SDOUT  NRF_GPIO_PIN_MAP(0, 26) // D9
 #define BUFFER_LENGTH 1000
 
@@ -138,8 +138,11 @@ void loop()
     delay(1000);
   }
 
-  if (n++ == 5)
+  if (n++ == 5) {
     playFile();
+  }
+  
+  delay(1000);
 
 }
 
@@ -156,14 +159,14 @@ void playFile(void) {
     if ( OggPrepareFile(&dataFile) ) {
       bytesPulled = OggGetNextPacket(&dataFile, oggBuf, OGG_BUF_LEN);
       if (bytesPulled > 0)
-        decoderError = opus_decode(decoder, oggBuf, bytesPulled, bufA, BUFFER_LENGTH, 0);
+        decoderError = opus_decode(decoder, oggBuf, bytesPulled, bufA, BUFFER_LENGTH/2, 0);
     }
   }
 
   // Send off the first transaction.
   firstBuf.p_rx_buffer = NULL;
   firstBuf.p_tx_buffer = (uint32_t *)bufA;
-  if ( nrfx_i2s_start(&firstBuf, BUFFER_LENGTH/2, 0) != NRFX_SUCCESS)
+  if ( nrfx_i2s_start(&firstBuf, 10, 0) != NRFX_SUCCESS)
     Serial.print("ERROR: I2S Failed to Start.");
 }
 
@@ -219,7 +222,7 @@ static void data_handler(nrfx_i2s_buffers_t const * p_released, uint32_t status)
   if ( dataFile.available() ) {
       bytesPulled = OggGetNextPacket(&dataFile, oggBuf, OGG_BUF_LEN);
       if (bytesPulled > 0)
-        decoderError = opus_decode(decoder, oggBuf, bytesPulled, (int16_t *)newBuf.p_tx_buffer, BUFFER_LENGTH, 0);
+        decoderError = opus_decode(decoder, oggBuf, bytesPulled, (int16_t *)newBuf.p_tx_buffer, BUFFER_LENGTH/2, 0);
       else
         nrfx_i2s_stop(); // Probably done.
   } else {

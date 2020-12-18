@@ -66,7 +66,7 @@ int OggGetNextDataPage (File * oggFile, uint8_t * destination, size_t maxLength)
 // header and fast forward to the start of the content before pulling anything.
 int OggGetNextPacket (File * oggFile, uint8_t * destination, size_t maxLength) {
     static size_t currentPacket = 0;
-    int dataLen;
+    static int dataLen = 0;
     int packetLen;
 
     // If we're done with the previous page and need a new one.
