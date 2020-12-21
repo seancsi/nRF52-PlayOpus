@@ -57,7 +57,7 @@ void OPUS_Init(void) {
     }
 
     decoder = opus_decoder_create(16000, 1, &decoderError);
-    //opus_decoder_ctl(decoder, OPUS_SET_LSB_DEPTH(16));
+    opus_decoder_ctl(decoder, OPUS_SET_LSB_DEPTH(16));
 }
 
 void OPUS_PlayFile(void) {
@@ -138,7 +138,7 @@ int OPUS_FetchAndDecodePage(FIL * oggFile, uint16_t * decodeBuf, size_t maxLen) 
     if (bytesPulled > 0) {
         for (i = 0; i < OggGetLastPageHeader()->Segments; i++) {
             packetLen = OggGetLastPageHeader()->SegmentTable[i];
-            decoderError = opus_decode(decoder, oggBuf + oggBufPtr, packetLen, decodeBuf, DEC_BUF_LEN, 0);
+            decoderError = opus_decode(decoder, oggBuf + oggBufPtr, packetLen, decodeBuf+samplesWritten, DEC_BUF_LEN, 0);
             oggBufPtr += packetLen;
             if (decoderError > 0)
                 samplesWritten += decoderError;

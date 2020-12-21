@@ -352,6 +352,7 @@ Found IR strong 'f_lseek' in 'Output/Release/Obj/PlayOpus/ff.o' change resolutio
 Found IR strong 'm_nrf_log_app_logs_data_const' in 'Output/Release/Obj/PlayOpus/nrf_log_frontend.o' change resolution from UNKNOWN to RESOLVED_IR
 Found IR strong 'OggGetLastPageHeader' in 'Output/Release/Obj/PlayOpus/ogg_stripper.o' change resolution from UNKNOWN to RESOLVED_IR
 Found IR strong 'opus_decode' in 'Output/Release/Obj/PlayOpus/opus_decoder.o' change resolution from UNKNOWN to RESOLVED_IR
+Found IR strong 'opus_decoder_ctl' in 'Output/Release/Obj/PlayOpus/opus_decoder.o' change resolution from UNKNOWN to RESOLVED_IR
 Found IR strong 'opus_decoder_create' in 'Output/Release/Obj/PlayOpus/opus_decoder.o' change resolution from UNKNOWN to RESOLVED_IR
 Found IR strong 'nrf_log_frontend_std_0' in 'Output/Release/Obj/PlayOpus/nrf_log_frontend.o' change resolution from UNKNOWN to RESOLVED_IR
 Found IR strong 'nrfx_i2s_init' in 'Output/Release/Obj/PlayOpus/nrfx_i2s.o' change resolution from UNKNOWN to RESOLVED_IR
