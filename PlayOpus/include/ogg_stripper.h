@@ -52,6 +52,8 @@ enum {
 int OggReadPageHeader (FIL * oggFile, oggPageHeader_t * header);
 int OggGetNextDataPage (FIL * oggFile, uint8_t * destination, size_t maxLength);
 int OggGetNextPacket (FIL * oggFile, uint8_t * destination, size_t maxLength);
+oggIDHeader_t* OggGetLastIDHeader(void);
+oggCommentHeader_t* OggGetLastCommentHeader(void);
 oggPageHeader_t* OggGetLastPageHeader(void);
 int OggGetIDHeader (FIL * oggFile, oggIDHeader_t * destination, int dataLen);
 int OggGetCommentHeader (FIL * oggFile, oggCommentHeader_t * destination, int dataLen);

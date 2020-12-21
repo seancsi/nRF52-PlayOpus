@@ -61,6 +61,8 @@ Output/Debug/Obj/PlayOpus/play_opus.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/external/fatfs/src/ff.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/external/fatfs/src/integer.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/external/fatfs/src/ffconf.h \
+ C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/fifo/app_fifo.h \
+ C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdlib.h \
  C:/Users/sean/Documents/GitHub/nRF52-PlayOpus/PlayOpus/include/ogg_stripper.h \
  C:/Users/sean/Documents/GitHub/nRF52-PlayOpus/PlayOpus/include/play_opus.h \
  opus-1.2.1/opus.h opus-1.2.1/opus_types.h opus-1.2.1/opus_defines.h

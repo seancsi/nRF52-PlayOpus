@@ -26,4 +26,6 @@ Output/Release/Obj/PlayOpus/app_fifo.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf52_to_nrf52840.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/compiler_abstraction.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_macros.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/nrf_assert.h
+ C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/nrf_assert.h \
+ C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/fifo/app_fifo.h \
+ C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdlib.h

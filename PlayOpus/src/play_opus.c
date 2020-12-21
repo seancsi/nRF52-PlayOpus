@@ -8,6 +8,7 @@
 #include "nrfx_i2s.h"
 #include "nrf_log.h"
 #include "ff.h"
+#include "app_fifo.h"
 
 #include "ogg_stripper.h"
 #include "play_opus.h"
@@ -21,8 +22,11 @@ static int decoderError;
 
 uint8_t oggBuf[OGG_BUF_LEN];
 
-int16_t bufA[BUFFER_LENGTH];
-int16_t bufB[BUFFER_LENGTH];
+int16_t decBuf[DEC_BUF_LEN];
+size_t decBufSamplesReady;
+
+int16_t bufA[DEC_BUF_LEN];
+int16_t bufB[DEC_BUF_LEN];
 nrfx_i2s_buffers_t firstBuf;
 nrfx_i2s_buffers_t newBuf;
 
@@ -48,18 +52,17 @@ void OPUS_Init(void) {
     config.mck_setup = NRF_I2S_MCK_32MDIV31;
     config.ratio = NRF_I2S_RATIO_64X;
 
-    if (nrfx_i2s_init(&config, &OPUS_DataHandler) != NRF_SUCCESS) {
+    if ( nrfx_i2s_init(&config, &OPUS_DataHandler) != NRF_SUCCESS ) {
         NRF_LOG_INFO("ERROR: I2S Config Failed.");
     }
 
-    decoder = opus_decoder_create(24000, 1, &decoderError);
-    opus_decoder_ctl(decoder, OPUS_SET_LSB_DEPTH(16));
+    decoder = opus_decoder_create(16000, 1, &decoderError);
+    //opus_decoder_ctl(decoder, OPUS_SET_LSB_DEPTH(16));
 }
 
 void OPUS_PlayFile(void) {
-    static int decoderError;
     int bytesPulled;
-    unsigned int bytesWritten;
+    size_t firstPagePointer;
     FRESULT res;
 
 //    res = f_open(&outFile, "out.raw", FA_CREATE_ALWAYS | FA_WRITE);
@@ -67,23 +70,35 @@ void OPUS_PlayFile(void) {
     res = f_open(&dataFile, "sample.ogg", FA_READ);
     if ( res == FR_OK ) {
         if ( OggPrepareFile(&dataFile) ) {
-            bytesPulled = OggGetNextPacket(&dataFile, oggBuf, OGG_BUF_LEN);
-            if (bytesPulled > 0) {
-                decoderError = opus_decode(decoder, oggBuf, bytesPulled, bufA, BUFFER_LENGTH, 0);
-                //if (decoderError > 0)
-                //    f_write(&outFile, bufA, decoderError * 2, &bytesWritten);
-                outFileBytesWritten += bytesWritten;
-                //f_sync(&outFile);
+            bytesPulled = OPUS_FetchAndDecodePage(&dataFile, decBuf, DEC_BUF_LEN);
+            if ( bytesPulled > 0 ) {
                 isPlaying = true;
+                decBufSamplesReady = 0;
+                OPUS_ProcessAudio(); // Make sure we have the next one ready to go.
+
+                // First, we need to massage the first page since it's not the same size as the rest.
+                // The Opus decoder also starts with some bytes that need to be discarded.
+                memset(bufA, 0, DEC_BUF_LEN * sizeof(int16_t) );
+                firstPagePointer = OggGetLastIDHeader()->PreSkip;
+
+                // If the first packet is short.  Offset that.
+                if (decBufSamplesReady > bytesPulled)
+                    firstPagePointer += (decBufSamplesReady - bytesPulled);
+
+                // Copy the bytes over.
+                memcpy_fast(bufA + firstPagePointer, decBuf + OggGetLastIDHeader()->PreSkip,
+                            DEC_BUF_LEN - firstPagePointer);
+
+                // Send off the first transaction.
+                firstBuf.p_rx_buffer = NULL;
+                firstBuf.p_tx_buffer = (uint32_t *)bufA;
+
+                printf("Starting %d %d\r\n", bytesPulled, decBufSamplesReady);
+                if ( nrfx_i2s_start(&firstBuf, decBufSamplesReady / 2, 0) != NRFX_SUCCESS)
+                    NRF_LOG_INFO("ERROR: I2S Failed to Start.");
             }
         }
     }
-
-    // Send off the first transaction.
-    firstBuf.p_rx_buffer = NULL;
-    firstBuf.p_tx_buffer = (uint32_t *)bufA;
-    if ( nrfx_i2s_start(&firstBuf, BUFFER_LENGTH / 2, 0) != NRFX_SUCCESS)
-        NRF_LOG_INFO("ERROR: I2S Failed to Start.");
 }
 
 void OPUS_Stop(void) {
@@ -96,29 +111,49 @@ void OPUS_Stop(void) {
 }
 
 void OPUS_ProcessAudio(void) {
-    int bytesPulled;
-    unsigned int bytesWritten;
+    int samplesPulled;
 
-    if (isPlaying) {
-        bytesPulled = OggGetNextPacket(&dataFile, oggBuf, OGG_BUF_LEN);
-        if (bytesPulled > 0) {
-            decoderError = opus_decode(decoder, oggBuf, bytesPulled, bufA, BUFFER_LENGTH, 0);
-            if (decoderError > 0) {
-                //f_write(&outFile, bufA, decoderError * 2, &bytesWritten);
-                outFileBytesWritten += bytesWritten;
-                //f_sync(&outFile);
-            } else {
-                OPUS_Stop();
-            }
+    if ( (isPlaying) && (!decBufSamplesReady) ) {
+        samplesPulled = OPUS_FetchAndDecodePage(&dataFile, decBuf, DEC_BUF_LEN);
+        if ( samplesPulled > 0 ) {
+            decBufSamplesReady = samplesPulled;
+            printf("Plop %d\r\n", decBufSamplesReady);
         } else {
             OPUS_Stop();
         }
     }
 }
 
+// Pull the next page into a local buffer and decode it into another buffer.
+// Returns the number of bytes put into the decode buffer.
+int OPUS_FetchAndDecodePage(FIL * oggFile, uint16_t * decodeBuf, size_t maxLen) {
+    int bytesPulled;
+    unsigned int samplesWritten = 0;
+    size_t i;
+    size_t oggBufPtr = 0;
+    size_t packetLen;
+    int decoderError;
+
+    bytesPulled = OggGetNextDataPage(&dataFile, oggBuf, OGG_BUF_LEN);
+    if (bytesPulled > 0) {
+        for (i = 0; i < OggGetLastPageHeader()->Segments; i++) {
+            packetLen = OggGetLastPageHeader()->SegmentTable[i];
+            decoderError = opus_decode(decoder, oggBuf + oggBufPtr, packetLen, decodeBuf, DEC_BUF_LEN, 0);
+            oggBufPtr += packetLen;
+            if (decoderError > 0)
+                samplesWritten += decoderError;
+        }
+        //if (decoderError > 0)
+        //    f_write(&outFile, bufA, decoderError * 2, &samplesWritten);
+        //f_sync(&outFile);
+        return samplesWritten;
+    } else {
+        return bytesPulled; // This will contain an error code from OggGetNextDataPage.  Hopefully an EOF.
+    }
+}
+
 // Callback invoked when we need more data in the I2S module.
 static void OPUS_DataHandler(nrfx_i2s_buffers_t const * p_released, uint32_t status) {
-    int bytesPulled;
     newBuf.p_rx_buffer = NULL;
     static int i = 0;
 
@@ -128,18 +163,16 @@ static void OPUS_DataHandler(nrfx_i2s_buffers_t const * p_released, uint32_t sta
         else
             newBuf.p_tx_buffer = (uint32_t *)bufB; // On the first run, bufA will be consumed and nothing will be freed, so queue B.
 
-        // Load up the recently freed buffer with new PCM data.
-        if ( &dataFile ) {
-            //bytesPulled = OggGetNextDataPage(&dataFile, oggBuf, OGG_BUF_LEN);
-            //if (bytesPulled > 0)
-                memset(newBuf.p_tx_buffer, i++, 40);
-                //decoderError = opus_decode(decoder, oggBuf, bytesPulled, (int16_t *)newBuf.p_tx_buffer, BUFFER_LENGTH, 0);
-            //else
-            //    OPUS_Stop();
+        if ( decBufSamplesReady > END_DISCARD_THRESHOLD ) {
+            memcpy_fast(newBuf.p_tx_buffer, decBuf, decBufSamplesReady);
+            decBufSamplesReady = 0;
+            nrfx_i2s_next_buffers_set(&newBuf);
+        } else if (decBufSamplesReady > 0) {
+            // This is a short end page.  Discard it and stop.
+            ; // TODO: Figure out a way to stop after the current packet.
         } else {
-            OPUS_Stop(); // Probably done.
+            printf("Possible buffer underflow, or EOF.\r\n");
+            OPUS_Stop();
         }
-
-        nrfx_i2s_next_buffers_set(&newBuf);
     }
 }

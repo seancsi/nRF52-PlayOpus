@@ -471,9 +471,9 @@ int main(void)
             //fatfs_mkfs();
         }
 
-        UNUSED_RETURN_VALUE(NRF_LOG_PROCESS());
+//        UNUSED_RETURN_VALUE(NRF_LOG_PROCESS());
         /* Sleep CPU only if there was no interrupt since last loop processing */
-        __WFE();
+//        __WFE();
     }
 }
 

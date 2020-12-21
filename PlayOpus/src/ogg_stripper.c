@@ -116,6 +116,14 @@ int OggGetNextPacket (FIL * oggFile, uint8_t * destination, size_t maxLength) {
     }
 }
 
+oggIDHeader_t* OggGetLastIDHeader(void) {
+    return &currentIDHeader;
+}
+
+oggCommentHeader_t* OggGetLastCommentHeader(void) {
+    return &currentCommentHeader;
+}
+
 oggPageHeader_t* OggGetLastPageHeader(void) {
     return &currentPageHeader;
 }
