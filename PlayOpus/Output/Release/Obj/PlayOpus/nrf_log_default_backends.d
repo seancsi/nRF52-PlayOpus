@@ -47,4 +47,4 @@ Output/Release/Obj/PlayOpus/nrf_log_default_backends.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/src/nrf_log_internal.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/nrf_log_types.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/nrf_assert.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/nrf_log_backend_uart.h
+ C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/nrf_log_backend_rtt.h

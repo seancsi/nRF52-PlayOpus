@@ -1,7 +1,7 @@
 Output/Debug/Obj/PlayOpus/system_nrf52840.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/system_nrf52840.c \
- C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdint.h \
- C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdbool.h \
+ C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdint.h \
+ C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdbool.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf52840.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/toolchain/cmsis/include/core_cm4.h \

@@ -1,5 +1,5 @@
 Output/Release/Obj/PlayOpus/nrf_serial_flash_params.o: \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/qspi/nrf_serial_flash_params.c \
+ C:\Users\sean\Documents\GitHub\nRF52-PlayOpus\PlayOpus\src\nrf_serial_flash_params.c \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/qspi/nrf_serial_flash_params.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_common.h \
  C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdint.h \

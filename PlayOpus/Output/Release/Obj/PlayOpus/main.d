@@ -108,7 +108,7 @@ Output/Release/Obj/PlayOpus/main.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/sortlist/nrf_sortlist.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/bsp/bsp.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/boards/boards.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/boards/pca10056.h \
+ C:/Users/sean/Documents/GitHub/nRF52-PlayOpus/PlayOpus/include/alderton.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/button/app_button.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/nrf_log.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/strerror/nrf_strerror.h \
@@ -119,4 +119,7 @@ Output/Release/Obj/PlayOpus/main.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/nrf_log_backend_interface.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/memobj/nrf_memobj.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/balloc/nrf_balloc.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/nrf_log_default_backends.h
+ C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/nrf_log_default_backends.h \
+ C:/Users/sean/Documents/GitHub/nRF52-PlayOpus/PlayOpus/include/play_opus.h \
+ C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/include/nrfx_i2s.h \
+ C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/hal/nrf_i2s.h

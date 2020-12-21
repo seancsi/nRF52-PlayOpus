@@ -77,7 +77,396 @@
 #endif
 
 // </e>
+// <e> I2S_ENABLED - nrf_drv_i2s - I2S peripheral driver - legacy layer
+//==========================================================
+#ifndef I2S_ENABLED
+#define I2S_ENABLED 1
+#endif
+// <o> I2S_CONFIG_SCK_PIN - SCK pin  <0-31> 
 
+
+#ifndef I2S_CONFIG_SCK_PIN
+#define I2S_CONFIG_SCK_PIN 31
+#endif
+
+// <o> I2S_CONFIG_LRCK_PIN - LRCK pin  <1-31> 
+
+
+#ifndef I2S_CONFIG_LRCK_PIN
+#define I2S_CONFIG_LRCK_PIN 30
+#endif
+
+// <o> I2S_CONFIG_MCK_PIN - MCK pin 
+#ifndef I2S_CONFIG_MCK_PIN
+#define I2S_CONFIG_MCK_PIN 255
+#endif
+
+// <o> I2S_CONFIG_SDOUT_PIN - SDOUT pin  <0-31> 
+
+
+#ifndef I2S_CONFIG_SDOUT_PIN
+#define I2S_CONFIG_SDOUT_PIN 29
+#endif
+
+// <o> I2S_CONFIG_SDIN_PIN - SDIN pin  <0-31> 
+
+
+#ifndef I2S_CONFIG_SDIN_PIN
+#define I2S_CONFIG_SDIN_PIN 28
+#endif
+
+// <o> I2S_CONFIG_MASTER  - Mode
+ 
+// <0=> Master 
+// <1=> Slave 
+
+#ifndef I2S_CONFIG_MASTER
+#define I2S_CONFIG_MASTER 0
+#endif
+
+// <o> I2S_CONFIG_FORMAT  - Format
+ 
+// <0=> I2S 
+// <1=> Aligned 
+
+#ifndef I2S_CONFIG_FORMAT
+#define I2S_CONFIG_FORMAT 0
+#endif
+
+// <o> I2S_CONFIG_ALIGN  - Alignment
+ 
+// <0=> Left 
+// <1=> Right 
+
+#ifndef I2S_CONFIG_ALIGN
+#define I2S_CONFIG_ALIGN 0
+#endif
+
+// <o> I2S_CONFIG_SWIDTH  - Sample width (bits)
+ 
+// <0=> 8 
+// <1=> 16 
+// <2=> 24 
+
+#ifndef I2S_CONFIG_SWIDTH
+#define I2S_CONFIG_SWIDTH 1
+#endif
+
+// <o> I2S_CONFIG_CHANNELS  - Channels
+ 
+// <0=> Stereo 
+// <1=> Left 
+// <2=> Right 
+
+#ifndef I2S_CONFIG_CHANNELS
+#define I2S_CONFIG_CHANNELS 1
+#endif
+
+// <o> I2S_CONFIG_MCK_SETUP  - MCK behavior
+ 
+// <0=> Disabled 
+// <2147483648=> 32MHz/2 
+// <1342177280=> 32MHz/3 
+// <1073741824=> 32MHz/4 
+// <805306368=> 32MHz/5 
+// <671088640=> 32MHz/6 
+// <536870912=> 32MHz/8 
+// <402653184=> 32MHz/10 
+// <369098752=> 32MHz/11 
+// <285212672=> 32MHz/15 
+// <268435456=> 32MHz/16 
+// <201326592=> 32MHz/21 
+// <184549376=> 32MHz/23 
+// <142606336=> 32MHz/30 
+// <138412032=> 32MHz/31 
+// <134217728=> 32MHz/32 
+// <100663296=> 32MHz/42 
+// <68157440=> 32MHz/63 
+// <34340864=> 32MHz/125 
+
+#ifndef I2S_CONFIG_MCK_SETUP
+#define I2S_CONFIG_MCK_SETUP 536870912
+#endif
+
+// <o> I2S_CONFIG_RATIO  - MCK/LRCK ratio
+ 
+// <0=> 32x 
+// <1=> 48x 
+// <2=> 64x 
+// <3=> 96x 
+// <4=> 128x 
+// <5=> 192x 
+// <6=> 256x 
+// <7=> 384x 
+// <8=> 512x 
+
+#ifndef I2S_CONFIG_RATIO
+#define I2S_CONFIG_RATIO 2000
+#endif
+
+// <o> I2S_CONFIG_IRQ_PRIORITY  - Interrupt priority
+ 
+
+// <i> Priorities 0,2 (nRF51) and 0,1,4,5 (nRF52) are reserved for SoftDevice
+// <0=> 0 (highest) 
+// <1=> 1 
+// <2=> 2 
+// <3=> 3 
+// <4=> 4 
+// <5=> 5 
+// <6=> 6 
+// <7=> 7 
+
+#ifndef I2S_CONFIG_IRQ_PRIORITY
+#define I2S_CONFIG_IRQ_PRIORITY 6
+#endif
+
+// <e> I2S_CONFIG_LOG_ENABLED - Enables logging in the module.
+//==========================================================
+#ifndef I2S_CONFIG_LOG_ENABLED
+#define I2S_CONFIG_LOG_ENABLED 0
+#endif
+// <o> I2S_CONFIG_LOG_LEVEL  - Default Severity level
+ 
+// <0=> Off 
+// <1=> Error 
+// <2=> Warning 
+// <3=> Info 
+// <4=> Debug 
+
+#ifndef I2S_CONFIG_LOG_LEVEL
+#define I2S_CONFIG_LOG_LEVEL 3
+#endif
+
+// <o> I2S_CONFIG_INFO_COLOR  - ANSI escape code prefix.
+ 
+// <0=> Default 
+// <1=> Black 
+// <2=> Red 
+// <3=> Green 
+// <4=> Yellow 
+// <5=> Blue 
+// <6=> Magenta 
+// <7=> Cyan 
+// <8=> White 
+
+#ifndef I2S_CONFIG_INFO_COLOR
+#define I2S_CONFIG_INFO_COLOR 0
+#endif
+
+// <o> I2S_CONFIG_DEBUG_COLOR  - ANSI escape code prefix.
+ 
+// <0=> Default 
+// <1=> Black 
+// <2=> Red 
+// <3=> Green 
+// <4=> Yellow 
+// <5=> Blue 
+// <6=> Magenta 
+// <7=> Cyan 
+// <8=> White 
+
+#ifndef I2S_CONFIG_DEBUG_COLOR
+#define I2S_CONFIG_DEBUG_COLOR 0
+#endif
+
+// </e>
+
+// </e>
+// <e> NRFX_I2S_ENABLED - nrfx_i2s - I2S peripheral driver
+//==========================================================
+#ifndef NRFX_I2S_ENABLED
+#define NRFX_I2S_ENABLED 1
+#endif
+// <o> NRFX_I2S_CONFIG_SCK_PIN - SCK pin  <0-31> 
+
+
+#ifndef NRFX_I2S_CONFIG_SCK_PIN
+#define NRFX_I2S_CONFIG_SCK_PIN 31
+#endif
+
+// <o> NRFX_I2S_CONFIG_LRCK_PIN - LRCK pin  <1-31> 
+
+
+#ifndef NRFX_I2S_CONFIG_LRCK_PIN
+#define NRFX_I2S_CONFIG_LRCK_PIN 30
+#endif
+
+// <o> NRFX_I2S_CONFIG_MCK_PIN - MCK pin 
+#ifndef NRFX_I2S_CONFIG_MCK_PIN
+#define NRFX_I2S_CONFIG_MCK_PIN 255
+#endif
+
+// <o> NRFX_I2S_CONFIG_SDOUT_PIN - SDOUT pin  <0-31> 
+
+
+#ifndef NRFX_I2S_CONFIG_SDOUT_PIN
+#define NRFX_I2S_CONFIG_SDOUT_PIN 29
+#endif
+
+// <o> NRFX_I2S_CONFIG_SDIN_PIN - SDIN pin  <0-31> 
+
+
+#ifndef NRFX_I2S_CONFIG_SDIN_PIN
+#define NRFX_I2S_CONFIG_SDIN_PIN 28
+#endif
+
+// <o> NRFX_I2S_CONFIG_MASTER  - Mode
+ 
+// <0=> Master 
+// <1=> Slave 
+
+#ifndef NRFX_I2S_CONFIG_MASTER
+#define NRFX_I2S_CONFIG_MASTER 0
+#endif
+
+// <o> NRFX_I2S_CONFIG_FORMAT  - Format
+ 
+// <0=> I2S 
+// <1=> Aligned 
+
+#ifndef NRFX_I2S_CONFIG_FORMAT
+#define NRFX_I2S_CONFIG_FORMAT 0
+#endif
+
+// <o> NRFX_I2S_CONFIG_ALIGN  - Alignment
+ 
+// <0=> Left 
+// <1=> Right 
+
+#ifndef NRFX_I2S_CONFIG_ALIGN
+#define NRFX_I2S_CONFIG_ALIGN 0
+#endif
+
+// <o> NRFX_I2S_CONFIG_SWIDTH  - Sample width (bits)
+ 
+// <0=> 8 
+// <1=> 16 
+// <2=> 24 
+
+#ifndef NRFX_I2S_CONFIG_SWIDTH
+#define NRFX_I2S_CONFIG_SWIDTH 1
+#endif
+
+// <o> NRFX_I2S_CONFIG_CHANNELS  - Channels
+ 
+// <0=> Stereo 
+// <1=> Left 
+// <2=> Right 
+
+#ifndef NRFX_I2S_CONFIG_CHANNELS
+#define NRFX_I2S_CONFIG_CHANNELS 1
+#endif
+
+// <o> NRFX_I2S_CONFIG_MCK_SETUP  - MCK behavior
+ 
+// <0=> Disabled 
+// <2147483648=> 32MHz/2 
+// <1342177280=> 32MHz/3 
+// <1073741824=> 32MHz/4 
+// <805306368=> 32MHz/5 
+// <671088640=> 32MHz/6 
+// <536870912=> 32MHz/8 
+// <402653184=> 32MHz/10 
+// <369098752=> 32MHz/11 
+// <285212672=> 32MHz/15 
+// <268435456=> 32MHz/16 
+// <201326592=> 32MHz/21 
+// <184549376=> 32MHz/23 
+// <142606336=> 32MHz/30 
+// <138412032=> 32MHz/31 
+// <134217728=> 32MHz/32 
+// <100663296=> 32MHz/42 
+// <68157440=> 32MHz/63 
+// <34340864=> 32MHz/125 
+
+#ifndef NRFX_I2S_CONFIG_MCK_SETUP
+#define NRFX_I2S_CONFIG_MCK_SETUP 536870912
+#endif
+
+// <o> NRFX_I2S_CONFIG_RATIO  - MCK/LRCK ratio
+ 
+// <0=> 32x 
+// <1=> 48x 
+// <2=> 64x 
+// <3=> 96x 
+// <4=> 128x 
+// <5=> 192x 
+// <6=> 256x 
+// <7=> 384x 
+// <8=> 512x 
+
+#ifndef NRFX_I2S_CONFIG_RATIO
+#define NRFX_I2S_CONFIG_RATIO 2000
+#endif
+
+// <o> NRFX_I2S_CONFIG_IRQ_PRIORITY  - Interrupt priority
+ 
+// <0=> 0 (highest) 
+// <1=> 1 
+// <2=> 2 
+// <3=> 3 
+// <4=> 4 
+// <5=> 5 
+// <6=> 6 
+// <7=> 7 
+
+#ifndef NRFX_I2S_CONFIG_IRQ_PRIORITY
+#define NRFX_I2S_CONFIG_IRQ_PRIORITY 6
+#endif
+
+// <e> NRFX_I2S_CONFIG_LOG_ENABLED - Enables logging in the module.
+//==========================================================
+#ifndef NRFX_I2S_CONFIG_LOG_ENABLED
+#define NRFX_I2S_CONFIG_LOG_ENABLED 0
+#endif
+// <o> NRFX_I2S_CONFIG_LOG_LEVEL  - Default Severity level
+ 
+// <0=> Off 
+// <1=> Error 
+// <2=> Warning 
+// <3=> Info 
+// <4=> Debug 
+
+#ifndef NRFX_I2S_CONFIG_LOG_LEVEL
+#define NRFX_I2S_CONFIG_LOG_LEVEL 3
+#endif
+
+// <o> NRFX_I2S_CONFIG_INFO_COLOR  - ANSI escape code prefix.
+ 
+// <0=> Default 
+// <1=> Black 
+// <2=> Red 
+// <3=> Green 
+// <4=> Yellow 
+// <5=> Blue 
+// <6=> Magenta 
+// <7=> Cyan 
+// <8=> White 
+
+#ifndef NRFX_I2S_CONFIG_INFO_COLOR
+#define NRFX_I2S_CONFIG_INFO_COLOR 0
+#endif
+
+// <o> NRFX_I2S_CONFIG_DEBUG_COLOR  - ANSI escape code prefix.
+ 
+// <0=> Default 
+// <1=> Black 
+// <2=> Red 
+// <3=> Green 
+// <4=> Yellow 
+// <5=> Blue 
+// <6=> Magenta 
+// <7=> Cyan 
+// <8=> White 
+
+#ifndef NRFX_I2S_CONFIG_DEBUG_COLOR
+#define NRFX_I2S_CONFIG_DEBUG_COLOR 0
+#endif
+
+// </e>
+
+// </e>
 // <e> NRFX_CLOCK_ENABLED - nrfx_clock - CLOCK peripheral driver
 //==========================================================
 #ifndef NRFX_CLOCK_ENABLED
@@ -92,7 +481,7 @@
 // <196609=> External Full Swing 
 
 #ifndef NRFX_CLOCK_CONFIG_LF_SRC
-#define NRFX_CLOCK_CONFIG_LF_SRC 1
+#define NRFX_CLOCK_CONFIG_LF_SRC 2
 #endif
 
 // <o> NRFX_CLOCK_CONFIG_IRQ_PRIORITY  - Interrupt priority
@@ -505,7 +894,7 @@
 // <e> NRFX_SPIM_ENABLED - nrfx_spim - SPIM peripheral driver
 //==========================================================
 #ifndef NRFX_SPIM_ENABLED
-#define NRFX_SPIM_ENABLED 1
+#define NRFX_SPIM_ENABLED 0
 #endif
 // <q> NRFX_SPIM0_ENABLED  - Enable SPIM0 instance
  
@@ -623,7 +1012,7 @@
 // <e> NRFX_SPI_ENABLED - nrfx_spi - SPI peripheral driver
 //==========================================================
 #ifndef NRFX_SPI_ENABLED
-#define NRFX_SPI_ENABLED 1
+#define NRFX_SPI_ENABLED 0
 #endif
 // <q> NRFX_SPI0_ENABLED  - Enable SPI0 instance
  
@@ -734,7 +1123,7 @@
 // <e> NRFX_UARTE_ENABLED - nrfx_uarte - UARTE peripheral driver
 //==========================================================
 #ifndef NRFX_UARTE_ENABLED
-#define NRFX_UARTE_ENABLED 1
+#define NRFX_UARTE_ENABLED 0
 #endif
 // <o> NRFX_UARTE0_ENABLED - Enable UARTE0 instance 
 #ifndef NRFX_UARTE0_ENABLED
@@ -860,7 +1249,7 @@
 // <e> NRFX_UART_ENABLED - nrfx_uart - UART peripheral driver
 //==========================================================
 #ifndef NRFX_UART_ENABLED
-#define NRFX_UART_ENABLED 1
+#define NRFX_UART_ENABLED 0
 #endif
 // <o> NRFX_UART0_ENABLED - Enable UART0 instance 
 #ifndef NRFX_UART0_ENABLED
@@ -1057,7 +1446,7 @@
 // <196609=> External Full Swing 
 
 #ifndef CLOCK_CONFIG_LF_SRC
-#define CLOCK_CONFIG_LF_SRC 1
+#define CLOCK_CONFIG_LF_SRC 2
 #endif
 
 // <q> CLOCK_CONFIG_LF_CAL_ENABLED  - Calibration enable for LF Clock Source
@@ -1261,7 +1650,7 @@
 // <e> SPI_ENABLED - nrf_drv_spi - SPI/SPIM peripheral driver - legacy layer
 //==========================================================
 #ifndef SPI_ENABLED
-#define SPI_ENABLED 1
+#define SPI_ENABLED 0
 #endif
 // <o> SPI_DEFAULT_CONFIG_IRQ_PRIORITY  - Interrupt priority
  
@@ -1344,7 +1733,7 @@
 // <e> UART_ENABLED - nrf_drv_uart - UART/UARTE peripheral driver - legacy layer
 //==========================================================
 #ifndef UART_ENABLED
-#define UART_ENABLED 1
+#define UART_ENABLED 0
 #endif
 // <o> UART_DEFAULT_CONFIG_HWFC  - Hardware Flow Control
  
@@ -1535,7 +1924,7 @@
 // <e> APP_SDCARD_ENABLED - app_sdcard - SD/MMC card support using SPI
 //==========================================================
 #ifndef APP_SDCARD_ENABLED
-#define APP_SDCARD_ENABLED 1
+#define APP_SDCARD_ENABLED 0
 #endif
 // <o> APP_SDCARD_SPI_INSTANCE  - SPI instance used
  
@@ -1675,7 +2064,7 @@
 // <e> APP_UART_ENABLED - app_uart - UART driver
 //==========================================================
 #ifndef APP_UART_ENABLED
-#define APP_UART_ENABLED 1
+#define APP_UART_ENABLED 0
 #endif
 // <o> APP_UART_DRIVER_INSTANCE  - UART instance used
  
@@ -2158,7 +2547,7 @@
 // <e> NRF_LOG_BACKEND_UART_ENABLED - nrf_log_backend_uart - Log UART backend
 //==========================================================
 #ifndef NRF_LOG_BACKEND_UART_ENABLED
-#define NRF_LOG_BACKEND_UART_ENABLED 1
+#define NRF_LOG_BACKEND_UART_ENABLED 0
 #endif
 // <o> NRF_LOG_BACKEND_UART_TX_PIN - UART TX pin 
 #ifndef NRF_LOG_BACKEND_UART_TX_PIN
@@ -5201,7 +5590,7 @@
 // <2=> BLOCK_IF_FIFO_FULL 
 
 #ifndef SEGGER_RTT_CONFIG_DEFAULT_MODE
-#define SEGGER_RTT_CONFIG_DEFAULT_MODE 0
+#define SEGGER_RTT_CONFIG_DEFAULT_MODE 1
 #endif
 
 // </h> 

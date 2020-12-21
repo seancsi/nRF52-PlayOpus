@@ -45,4 +45,4 @@ Output/Release/Obj/PlayOpus/boards.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_errors.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_resources.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/nrfx_errors.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/boards/pca10056.h
+ C:/Users/sean/Documents/GitHub/nRF52-PlayOpus/PlayOpus/include/alderton.h

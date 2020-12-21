@@ -46,7 +46,7 @@ Output/Release/Obj/PlayOpus/bsp.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_errors.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_resources.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/nrfx_errors.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/boards/pca10056.h \
+ C:/Users/sean/Documents/GitHub/nRF52-PlayOpus/PlayOpus/include/alderton.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/button/app_button.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_error.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/bsp/bsp_config.h \

@@ -408,6 +408,7 @@ int main(void)
 
     if (fatfs_init())
     {
+        //fatfs_mkfs();
         fatfs_ls();
         //fatfs_file_create();
     }
@@ -457,6 +458,8 @@ int main(void)
                 OPUS_PlayFile();
             }
         }
+
+        OPUS_ProcessAudio();
 
         if (events & KEY_EV_LIST_DIR_MSK)
         {

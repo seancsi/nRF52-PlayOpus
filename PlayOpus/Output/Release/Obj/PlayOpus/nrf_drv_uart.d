@@ -43,8 +43,4 @@ Output/Release/Obj/PlayOpus/nrf_drv_uart.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/soc/nrfx_atomic.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_errors.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_resources.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/nrfx_errors.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/include/nrfx_uarte.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/hal/nrf_uarte.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/include/nrfx_uart.h \
- C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/hal/nrf_uart.h
+ C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/nrfx_errors.h

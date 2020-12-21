@@ -8,7 +8,6 @@
       arm_endian="Little"
       arm_fp_abi="Hard"
       arm_fpu_type="FPv4-SP-D16"
-      arm_linker_heap_size="8192"
       arm_linker_process_stack_size="0"
       arm_linker_stack_size="8192"
       arm_linker_treat_warnings_as_errors="No"
@@ -38,7 +37,9 @@
     <folder Name="nRF_Log">
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/src/nrf_log_backend_rtt.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/src/nrf_log_backend_serial.c" />
-      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/src/nrf_log_backend_uart.c" />
+      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/src/nrf_log_backend_uart.c">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+      </file>
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/src/nrf_log_default_backends.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/src/nrf_log_frontend.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/log/src/nrf_log_str_formatter.c" />
@@ -53,9 +54,13 @@
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_error_weak.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/fifo/app_fifo.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/scheduler/app_scheduler.c" />
-      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/sdcard/app_sdcard.c" />
+      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/sdcard/app_sdcard.c">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+      </file>
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/timer/app_timer2.c" />
-      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/uart/app_uart_fifo.c" />
+      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/uart/app_uart_fifo.c">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+      </file>
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/usbd/app_usbd.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/usbd/app_usbd_core.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/usbd/class/msc/app_usbd_msc.c" />
@@ -78,6 +83,7 @@
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/ringbuf/nrf_ringbuf.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/block_dev/qspi/nrf_serial_flash_params.c">
         <configuration Name="Debug" build_exclude_from_build="Yes" />
+        <configuration Name="Release" build_exclude_from_build="Yes" />
       </file>
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/sortlist/nrf_sortlist.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/strerror/nrf_strerror.c" />
@@ -85,8 +91,13 @@
     <folder Name="nRF_Drivers">
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/integration/nrfx/legacy/nrf_drv_clock.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/integration/nrfx/legacy/nrf_drv_power.c" />
-      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/integration/nrfx/legacy/nrf_drv_spi.c" />
-      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/integration/nrfx/legacy/nrf_drv_uart.c" />
+      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/integration/nrfx/legacy/nrf_drv_spi.c">
+        <configuration Name="Release" build_exclude_from_build="Yes" />
+      </file>
+      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/integration/nrfx/legacy/nrf_drv_uart.c">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+        <configuration Name="Release" build_exclude_from_build="Yes" />
+      </file>
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/drivers_nrf/nrf_soc_nosd/nrf_nvic.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/drivers_nrf/nrf_soc_nosd/nrf_soc.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/soc/nrfx_atomic.c" />
@@ -95,13 +106,27 @@
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_power.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/prs/nrfx_prs.c" />
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_qspi.c" />
-      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_spi.c" />
-      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_spim.c" />
+      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_spi.c">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+        <configuration Name="Release" build_exclude_from_build="Yes" />
+      </file>
+      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_spim.c">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+        <configuration Name="Release" build_exclude_from_build="Yes" />
+      </file>
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_systick.c" />
-      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_uart.c" />
-      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_uarte.c" />
+      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_uart.c">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+        <configuration Name="Release" build_exclude_from_build="Yes" />
+      </file>
+      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_uarte.c">
+        <configuration Name="Debug" build_exclude_from_build="Yes" />
+        <configuration Name="Release" build_exclude_from_build="Yes" />
+      </file>
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_usbd.c" />
-      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_i2s.c" />
+      <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/src/nrfx_i2s.c">
+        <configuration Name="Release" build_exclude_from_build="No" />
+      </file>
     </folder>
     <folder Name="Board Support">
       <file file_name="C:/Nordic Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/bsp/bsp.c" />
@@ -269,8 +294,8 @@
   <configuration
     Name="Release"
     c_preprocessor_definitions="NDEBUG"
-    gcc_optimization_level="Optimize For Size"
-    link_time_optimization="No" />
+    gcc_optimization_level="Level 2 for speed"
+    link_time_optimization="Yes" />
   <configuration
     Name="Debug"
     c_preprocessor_definitions="DEBUG; DEBUG_NRF"
@@ -279,5 +304,6 @@
     Name="Common"
     arm_architecture="v7EM"
     arm_fpu_type="FPv4-SP-D16"
+    arm_linker_heap_size="16384"
     c_user_include_directories=".;$(SolutionDir)/include" />
 </solution>

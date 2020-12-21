@@ -26,6 +26,7 @@ int OggReadPageHeader (FIL * oggFile, oggPageHeader_t * header) {
                     header->DataLength = 0;
                     for (i = 0; i < header->Segments; i++)
                         header->DataLength += header->SegmentTable[i];
+                    printf("Got header for page %d.\r\n", header->SequenceNumber);
                     return header->DataLength;
                 } else {
                     return OGG_STRIP_EOF;
@@ -42,21 +43,38 @@ int OggReadPageHeader (FIL * oggFile, oggPageHeader_t * header) {
 }
 
 // Grab the next page's content into destination.
-// This will pull the ENTIRE page, which is probably not as useful as the packet implementation below.
+// This will pull the ENTIRE page.
 // We assume we're at the beginning of the page (i.e. on OggS).
 // So, we need to get the page header first to figure out how much data is actually
 // available in this page.
 int OggGetNextDataPage (FIL * oggFile, uint8_t * destination, size_t maxLength) {
     uint32_t bytesRead;
+    uint32_t cumulativeBytesRead = 0;
     int dataLen = OggReadPageHeader(oggFile, &currentPageHeader);
+    FRESULT res;
     if (dataLen > 0) {
         // The page header is good and dataLen is the number of available bytes in the page.
         // Note: Since we made sure dataLen > 0, casting to unsigned is safe.
         if ((unsigned)dataLen > maxLength)
             dataLen = maxLength;
 
-        f_read(oggFile, destination, dataLen, &bytesRead);
-        if (bytesRead == (unsigned)dataLen) {
+        while ( (unsigned)dataLen > (cumulativeBytesRead + OGG_MAX_READ_LEN) ) {
+            res = f_read(oggFile, destination + cumulativeBytesRead, OGG_MAX_READ_LEN, &bytesRead);
+            cumulativeBytesRead += bytesRead;
+            if (bytesRead < OGG_MAX_READ_LEN) {
+                return OGG_STRIP_EOF;
+            }
+        }
+
+        if ( (dataLen - cumulativeBytesRead) > 0 ) { // Read the remaining bytes.
+            res = f_read(oggFile, destination + cumulativeBytesRead, (unsigned)dataLen - cumulativeBytesRead, &bytesRead);
+            cumulativeBytesRead += bytesRead;
+            if (bytesRead < ((unsigned)dataLen - cumulativeBytesRead) ) {
+                return OGG_STRIP_EOF;
+            }
+        }
+
+        if (cumulativeBytesRead == (unsigned)dataLen) {
             return dataLen;
         } else {
             return OGG_STRIP_EOF;
@@ -78,10 +96,10 @@ int OggGetNextPacket (FIL * oggFile, uint8_t * destination, size_t maxLength) {
     uint32_t bytesRead;
 
     // If we're done with the previous page and need a new one.
-    if (currentPacket >= currentPageHeader.Segments)
+    if (++currentPacket >= currentPageHeader.Segments)
         currentPacket = 0;
 
-    if (!currentPacket++)
+    if (!currentPacket)
         dataLen = OggReadPageHeader(oggFile, &currentPageHeader);
    
     if (dataLen > 0) {

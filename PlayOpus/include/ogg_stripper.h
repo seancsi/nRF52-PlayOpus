@@ -10,6 +10,8 @@
 #define OPUSHEAD_MAGIC 0x646165487375704F // "OpusHead"
 #define OPUSTAGS_MAGIC 0x736761547375704F // "OpusTags"
 
+#define OGG_MAX_READ_LEN 512 // Read this many bytes at a time, fatFS limitation.
+
 typedef struct __attribute((packed)) {
     uint32_t Signature;
     uint8_t Version;
