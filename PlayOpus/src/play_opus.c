@@ -49,14 +49,14 @@ void OPUS_Init(void) {
     config.alignment = NRF_I2S_ALIGN_LEFT;
     config.sample_width = NRF_I2S_SWIDTH_16BIT;
     config.channels = NRF_I2S_CHANNELS_LEFT;
-    config.mck_setup = NRF_I2S_MCK_32MDIV31;
+    config.mck_setup = NRF_I2S_MCK_32MDIV21;
     config.ratio = NRF_I2S_RATIO_64X;
 
     if ( nrfx_i2s_init(&config, &OPUS_DataHandler) != NRF_SUCCESS ) {
         NRF_LOG_INFO("ERROR: I2S Config Failed.");
     }
 
-    decoder = opus_decoder_create(16000, 1, &decoderError);
+    decoder = opus_decoder_create(24000, 1, &decoderError);
     opus_decoder_ctl(decoder, OPUS_SET_LSB_DEPTH(16));
 }
 
@@ -74,12 +74,11 @@ void OPUS_PlayFile(void) {
             if ( bytesPulled > 0 ) {
                 isPlaying = true;
                 decBufSamplesReady = 0;
-                OPUS_ProcessAudio(); // Make sure we have the next one ready to go.
 
                 // First, we need to massage the first page since it's not the same size as the rest.
                 // The Opus decoder also starts with some bytes that need to be discarded.
                 memset(bufA, 0, DEC_BUF_LEN * sizeof(int16_t) );
-                firstPagePointer = OggGetLastIDHeader()->PreSkip;
+                firstPagePointer = OggGetLastIDHeader()->PreSkip * sizeof(int16_t); // PreSkip is in samples, not bytes.
 
                 // If the first packet is short.  Offset that.
                 if (decBufSamplesReady > bytesPulled)
@@ -87,7 +86,9 @@ void OPUS_PlayFile(void) {
 
                 // Copy the bytes over.
                 memcpy_fast(bufA + firstPagePointer, decBuf + OggGetLastIDHeader()->PreSkip,
-                            DEC_BUF_LEN - firstPagePointer);
+                            ( DEC_BUF_LEN * sizeof(int16_t) ) - firstPagePointer);
+
+                OPUS_ProcessAudio(); // Make sure we have the next one ready to go.
 
                 // Send off the first transaction.
                 firstBuf.p_rx_buffer = NULL;
@@ -138,7 +139,7 @@ int OPUS_FetchAndDecodePage(FIL * oggFile, uint16_t * decodeBuf, size_t maxLen) 
     if (bytesPulled > 0) {
         for (i = 0; i < OggGetLastPageHeader()->Segments; i++) {
             packetLen = OggGetLastPageHeader()->SegmentTable[i];
-            decoderError = opus_decode(decoder, oggBuf + oggBufPtr, packetLen, decodeBuf+samplesWritten, DEC_BUF_LEN, 0);
+            decoderError = opus_decode(decoder, oggBuf + oggBufPtr, packetLen, decodeBuf + samplesWritten, DEC_BUF_LEN, 0);
             oggBufPtr += packetLen;
             if (decoderError > 0)
                 samplesWritten += decoderError;
@@ -156,16 +157,25 @@ int OPUS_FetchAndDecodePage(FIL * oggFile, uint16_t * decodeBuf, size_t maxLen) 
 static void OPUS_DataHandler(nrfx_i2s_buffers_t const * p_released, uint32_t status) {
     newBuf.p_rx_buffer = NULL;
     static int i = 0;
+    int16_t * nextBuffer;
 
     if (status == NRFX_I2S_STATUS_NEXT_BUFFERS_NEEDED) {
+        // This is a bit goofy, but copy to our local buffers before assigning them to the struct so const is respected.
         if (p_released->p_tx_buffer)
-            newBuf.p_tx_buffer = p_released->p_tx_buffer;
+            nextBuffer = (int16_t *)p_released->p_tx_buffer;
         else
-            newBuf.p_tx_buffer = (uint32_t *)bufB; // On the first run, bufA will be consumed and nothing will be freed, so queue B.
+            nextBuffer = bufB; // On the first run, bufA will be consumed and nothing will be freed, so queue B.
 
         if ( decBufSamplesReady > END_DISCARD_THRESHOLD ) {
-            memcpy_fast(newBuf.p_tx_buffer, decBuf, decBufSamplesReady);
+            if (nextBuffer == bufA)
+                printf("Slurp %d to A\r\n", decBufSamplesReady);
+            else if (nextBuffer == bufB)
+                printf("Slurp %d to B\r\n", decBufSamplesReady);
+            else
+                printf("Slurp %d to WTF\r\n", decBufSamplesReady);
+            memcpy_fast( nextBuffer, decBuf, decBufSamplesReady * sizeof(int16_t) );
             decBufSamplesReady = 0;
+            newBuf.p_tx_buffer = (uint32_t *) nextBuffer;
             nrfx_i2s_next_buffers_set(&newBuf);
         } else if (decBufSamplesReady > 0) {
             // This is a short end page.  Discard it and stop.

@@ -1,7 +1,7 @@
 Output/Release/Obj/PlayOpus/nrf_assert.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/nrf_assert.c \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/nrf_assert.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdint.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdint.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf52840.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/toolchain/cmsis/include/core_cm4.h \
@@ -15,9 +15,9 @@ Output/Release/Obj/PlayOpus/nrf_assert.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf52_to_nrf52840.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/compiler_abstraction.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_error.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdio.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/__crossworks.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdbool.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdio.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/__crossworks.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdbool.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_errors.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/drivers_nrf/nrf_soc_nosd/nrf_error.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/nordic_common.h \

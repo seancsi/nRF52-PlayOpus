@@ -1,16 +1,16 @@
 Output/Release/Obj/PlayOpus/bsp.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/bsp/bsp.c \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/bsp/bsp.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdint.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdbool.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdint.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdbool.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/boards/boards.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/hal/nrf_gpio.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/nrfx.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/integration/nrfx/nrfx_config.h \
- C:/Users/sean/Documents/GitHub/nRF52-PlayOpus/PlayOpus/include/sdk_config.h \
+ C:/Users/sean/Git/nRF52-PlayOpus/PlayOpus/include/sdk_config.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/nrfx_common.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stddef.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/__crossworks.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stddef.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/__crossworks.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/mdk/nrf52840.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/toolchain/cmsis/include/core_cm4.h \
@@ -37,7 +37,7 @@ Output/Release/Obj/PlayOpus/bsp.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_util_platform.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/nrf_assert.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_error.h \
- C:/Users/sean/ncs/v1.4.0/toolchain/segger_embedded_studio/include/stdio.h \
+ C:/Users/sean/ncs/v1.4.1/toolchain/segger_embedded_studio/include/stdio.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_errors.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/drivers_nrf/nrf_soc_nosd/nrf_error.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_error_weak.h \
@@ -46,7 +46,7 @@ Output/Release/Obj/PlayOpus/bsp.o: \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_errors.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/sdk_resources.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/modules/nrfx/drivers/nrfx_errors.h \
- C:/Users/sean/Documents/GitHub/nRF52-PlayOpus/PlayOpus/include/alderton.h \
+ C:/Users/sean/Git/nRF52-PlayOpus/PlayOpus/include/alderton.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/button/app_button.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/util/app_error.h \
  C:/Nordic\ Semiconductor/nRF5_SDK_17.0.2_d674dde/components/libraries/bsp/bsp_config.h \
